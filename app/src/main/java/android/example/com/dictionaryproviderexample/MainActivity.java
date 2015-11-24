@@ -54,6 +54,7 @@ public class MainActivity extends ActionBarActivity {
 
         // Get a Cursor containing all of the rows in the Words table.
         Cursor cursor = resolver.query(UserDictionary.Words.CONTENT_URI, null, null, null, null);
+<<<<<<< HEAD
 
         // Set the Adapter to fill the standard two_line_list_item layout with data from the Cursor.
         SimpleCursorAdapter adapter = new SimpleCursorAdapter(this,
@@ -65,5 +66,29 @@ public class MainActivity extends ActionBarActivity {
 
         // Attach the adapter to the ListView.
         dictListView.setAdapter(adapter);
+=======
+        // Surround the cursor in a try statement so that the finally block will eventually execute
+                try {
+                        dictTextView.setText("The UserDictionary contains ");
+                        // -- YOUR CODE BELOW HERE -- //
+
+                                        // Get the index of the column containing the actual words, using
+                                                // UserDictionary.Words.WORD, which is the header of the word column.
+                                                       int wordColumn = cursor.getColumnIndex(UserDictionary.Words.WORD);
+
+                                // Iterates through all returned rows in the cursor.
+                                        while (cursor.moveToNext()) {
+                                // Use that index to extract the String value of the word
+                                        // at the current row the cursor is on.
+                                                String word = cursor.getString(wordColumn);
+                                dictTextView.append(("\n" + word));
+                            }
+                   } finally {
+                       // Always close your cursor to avoid memory leaks
+                               cursor.close();
+                   }
+
+
+>>>>>>> Setting_up_DictionaryProviderExample
     }
 }
